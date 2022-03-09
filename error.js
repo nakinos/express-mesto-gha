@@ -11,7 +11,7 @@ module.exports.errorHandler = (err, req, res, next) => {
 
     case 'NotFoundError':
       errorCode = 404;
-      errorMessage = 'Запись по указанному id не найдена.';
+      errorMessage = err.message || 'Запись по указанному id не найдена.';
       break;
 
     default:

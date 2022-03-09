@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const { errorHandler } = require('./error');
+const { errorHandler, NotFoundError } = require('./error');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -21,6 +21,10 @@ app.use((req, res, next) => {
 
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
+
+app.use('*', () => {
+  throw new NotFoundError('Не найден endpoint');
+});
 
 app.use(errorHandler);
 
