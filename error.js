@@ -21,6 +21,7 @@ module.exports.errorHandler = (err, req, res, next) => {
   }
 
   res.status(errorCode).send({ message: errorMessage });
+  next();
 };
 
 module.exports.NotFoundError = class NotFoundError extends Error {
