@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const errorHandler = require('./middlewares/error');
@@ -11,6 +12,7 @@ const NotFoundError = require('./errors/NotFoundError');
 const { PORT = 3000 } = process.env;
 const app = express();
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

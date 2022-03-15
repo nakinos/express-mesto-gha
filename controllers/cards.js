@@ -37,14 +37,13 @@ module.exports.createCard = (req, res, next) => {
 
 module.exports.deleteCard = (req, res, next) => {
   const { cardId } = req.params;
-  const { _id } = req.user;
 
   Card.findById(cardId)
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карта не найдена');
       }
-      if (card.owner !== _id) {
+      if (!card.owner.equals(req.user._id)) {
         throw new ForbiddenError('Невозможно удалить чужую карточку');
       }
 
