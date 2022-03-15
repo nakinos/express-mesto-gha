@@ -48,7 +48,7 @@ module.exports.deleteCard = (req, res, next) => {
       }
 
       Card.findByIdAndDelete(cardId)
-        .then(() => res.send(`Карта ${cardId} удалена`))
+        .then(() => res.send({ message: `Карта ${cardId} удалена` }))
         .catch((err) => next(err));
     })
     .catch((err) => next(err));
@@ -73,7 +73,7 @@ module.exports.dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(cardId, { $pull: { likes: req.user._id } }, { new: true })
     .then((card) => {
       if (!card) {
-        throw new NotFoundError();
+        throw new NotFoundError('Карта не найдена');
       }
       return res.send(card);
     })
